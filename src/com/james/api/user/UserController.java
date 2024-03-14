@@ -16,10 +16,17 @@ public class UserController {
     UserServiceImpl userSerivice;
     UtilService utilService;
 
+    private static UserController instance = new UserController();
+
     public UserController() {
         this.userSerivice = UserServiceImpl.getInstance();
         this.utilService = UtilServiceImpl.getInstance();
     }
+
+    public static UserController getInstance() {
+        return instance;
+    }
+
     public String delete(Scanner sc) {
         userSerivice.delete(User.builder()
                 .username(sc.next())

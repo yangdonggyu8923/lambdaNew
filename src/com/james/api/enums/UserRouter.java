@@ -3,98 +3,103 @@ package com.james.api.enums;
 import com.james.api.user.UserController;
 
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.function.BiPredicate;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
-public enum UserRouterOfPredicate {
-    EXIT("x", (a, b) -> {
+public enum UserRouter {
+    EXIT("x", scan -> {
         System.out.println("EXIT");
         return false;
     }),
-    LOGIN("log", (a,b) ->{
+    LOGIN("log", scan ->{
         System.out.println("LOGIN");
-        a.login(b);
+        UserController.getInstance().login(scan);
         return true;
     }),
-    FINDUSER("f", (a,b) ->{
+    FINDUSER("f", scan ->{
         System.out.println("FIND USER");
-        a.findUser();
+        UserController.getInstance().getOne(scan);
         return true;
     }),
-    CHANGEPASSWORD("c", (a,b) ->{
+    CHANGEPASSWORD("c", scan ->{
         System.out.println("CHANGE PASSWORD");
-        a.changePassword(b);
+        System.out.println(UserController.getInstance().changePassword(scan));
         return true;
     }),
-    DELETE("d", (a,b) ->{
+    DELETE("d", scan ->{
         System.out.println("DELETE USER");
-        a.delete(b);
+        System.out.println(UserController.getInstance().delete(scan));
         return true;
     }),
-    LIST("ls", (a,b) ->{
+    LIST("ls", scan ->{
         System.out.println("USERS LIST");
         try {
-            a.findUsers();
+            UserController.getInstance().findUsers().forEach(i-> System.out.println(i));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return true;
     }),
-    FINDUSERSBYNAME("fn", (a,b) ->{
+    FINDUSERSBYNAME("fn", scan ->{
         System.out.println("FIND USERS BY NAME");
-        a.findUsersByName(b);
+        UserController.getInstance().findUsersByName(scan);
         return true;
     }),
-    FINDUSERSBYJOB("fj", (a,b) ->{
+    FINDUSERSBYJOB("fj", scan ->{
         System.out.println("FIND USERS BY JOB");
-        a.findUsersByJob(b);
+        UserController.getInstance().findUsersByJob(scan);
         return true;
     }),
-    USERCOUNT("uc", (a,b) ->{
+    USERCOUNT("uc", scan ->{
         System.out.println("USER COUNT");
-        a.count();
+        UserController.getInstance().count();
         return true;
     }),
-    TOUCH("touch", (a, b)-> {
+    TOUCH("touch", scan-> {
         System.out.println("CREATE");
         try {
-            System.out.println(a.createTable());
+            System.out.println(UserController.getInstance().createTable());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         return true;
     }),
-    REMOVE("rm", (a, b)-> {
+    REMOVE("rm", scan -> {
         System.out.println("REMOVE");
         try {
-            System.out.println(a.deleteTable());
+            System.out.println(UserController.getInstance().deleteTable());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return true;
     }),
-    INSERT("in", (a, b)-> {
+    INSERT("in", scan -> {
         System.out.println("INSERT");
         try {
-            System.out.println(a.insertData(b));
+            System.out.println(UserController.getInstance().insertData(scan));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return true;
+    }),
+
+    WRONG("WRONG", scan -> {
+        System.out.println("WRONG");
         return true;
     })
     ;
 
     private final String name;
-    private final BiPredicate<UserController, Scanner> predicate;
+    private final Predicate<Scanner> predicate;
 
-    UserRouterOfPredicate(String name, BiPredicate<UserController, Scanner> predicate) {
+    UserRouter(String name, Predicate<Scanner> predicate) {
         this.name = name;
         this.predicate = predicate;
     }
 
-    public static boolean userRouterTest(UserController ctrl, Scanner sc){
+    public static boolean userRouter(UserController ctrl, Scanner sc){
         System.out.println("[MENU]\n" +
                 "x-Exit\n" +
                 "log-LOGIN\n" +
@@ -109,9 +114,9 @@ public enum UserRouterOfPredicate {
                 "rm-테이블삭제\n" +
                 "in-데이터추가");
         String msg = sc.next();
-        return Arrays.stream(values())
+        return Stream.of(values())
                 .filter(i->i.name.equals(msg))
-                .findFirst().orElseThrow(() ->new IllegalArgumentException("올바른 값이 아닙니다."))
-                .predicate.test(ctrl,sc);
+                .findFirst().orElseGet(() -> WRONG)
+                .predicate.test(sc);
     }
 }

@@ -163,7 +163,9 @@ show tables;]]></console>
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="13b24ccd-0896-4a02-882d-6c8a1e2e1899" object-ref="consoles/jamesdb" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="13b24ccd-0896-4a02-882d-6c8a1e2e1899" />

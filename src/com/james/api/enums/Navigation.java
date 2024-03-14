@@ -9,56 +9,58 @@ import com.james.api.user.UserView;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
-import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
-public enum NavigationOfFunction {
-    Exit("x", i -> "x"),
-    User("u", i-> {
+public enum Navigation {
+    EXIT("x", i -> {
+        System.out.println("EXIT");
+        return false;}),
+    BOARD("b", i -> {
+        BoardView.main(i);
+        return true;}),
+    USER("u", i -> {
         try {
             UserView.main(i);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return "";
-    }),
-    Board("b", i -> {
-            BoardView.main(i);
-            return "";}),
-    Account("m", i ->{
+        return true;}),
+    ACCOUNT("m", i -> {
         AccountView.main(i);
-        return "";
-    }),
-    Crawler("c", i -> {
+        return true;}),
+    CRAWLER("c", i -> {
         try {
             CrawlerView.main(i);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return "";
-    }),
-    Article("a", i -> {
+        return true;}),
+    ARTICLE("a", i -> {
         try {
             ArticleView.main(i);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return "";
-    }),
-
+        return true;})
     ;
 
+    private final Predicate<Scanner> predicate;
     private final String name;
-    private final Function<Scanner, String> function;
 
-    NavigationOfFunction(String name, Function<Scanner, String> function) {
+    Navigation(String name, Predicate<Scanner> predicate) {
         this.name = name;
-        this.function = function;
+        this.predicate = predicate;
     }
 
-    public static String navi(Scanner sc) {
+
+
+    public static boolean navi(Scanner sc){
         System.out.println("x-Exit, b-Board, u-User, m-Account, c-Crawler, a-Article");
-        String s = sc.next();
-        System.out.println("입력값 :" + s);
-        return s;
+        String msg = sc.next();
+        return Stream.of(values())
+                .filter(i->i.name.equals(msg))
+                .findFirst().orElseThrow(() ->new IllegalArgumentException("올바른 값이 아닙니다."))
+                .predicate.test(sc);
     }
 }

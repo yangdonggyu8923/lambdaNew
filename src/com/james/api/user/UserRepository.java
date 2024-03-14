@@ -41,6 +41,7 @@ public class UserRepository {
         List<User> ls = new ArrayList<>();
         String sql = "select * from users";
         pstmt = connection.prepareStatement(sql);
+        rs = pstmt.executeQuery();
 
         if (rs.next()) {
             do {
