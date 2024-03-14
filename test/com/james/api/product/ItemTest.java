@@ -18,8 +18,8 @@ class ItemTest {
     @org.junit.jupiter.api.Test
     void add() {
         Item m = new Item();
-        int result = Item.add(1,2);
-        assertEquals(4, result);
+        int result = m.add(1,2);
+        assertEquals(3, result);
 
     }
 }

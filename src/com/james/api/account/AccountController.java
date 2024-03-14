@@ -1,24 +1,21 @@
 package com.james.api.account;
+
+
 import com.james.api.enums.Messenger;
 
 import java.util.List;
 import java.util.Scanner;
+
 public class AccountController {
-
-
-    //싱글톤 패턴
-    // 생성자를 알트 + insert로 만든다.
     AccountServiceImpl accountService;
 
     public AccountController() {
         this.accountService = AccountServiceImpl.getInstance();
     }
-    //  new AccountServiceImpl -> AccountServiceImpl.getInstance(); 바꿔준다.
-    // 싱글톤 패턴 종료.
 
 
-    public Messenger createAccount(Scanner sc) { // 계좌생성
-        System.out.println("입력하세요");
+    public Messenger createAccount(Scanner sc) {
+        System.out.println("아이디, 계좌번호, 계좌주, 잔고, 금일날짜를 입력하세요.");
         return accountService.save(Account.builder()
                 .id(sc.nextLong())
                 .accountNumber(sc.next())
@@ -28,7 +25,8 @@ public class AccountController {
                 .build());
     }
 
-    public String deposit(Scanner sc) { // 입금
+
+    public String deposit(Scanner sc) {
         return accountService.deposit(Account.builder()
                 .id(sc.nextLong())
                 .accountNumber(sc.next())
@@ -38,7 +36,8 @@ public class AccountController {
                 .build());
     }
 
-    public String withdraw(Scanner sc) { // 출금
+
+    public String withdraw(Scanner sc) {
         return accountService.withdraw(Account.builder()
                 .id(sc.nextLong())
                 .accountNumber(sc.next())
@@ -48,15 +47,17 @@ public class AccountController {
                 .build());
     }
 
-    public String getBalance(Scanner sc) { // 잔고확인
+
+    public String getBalance(Scanner sc) {
         return accountService.getBalance(sc.next());
     }
 
-    public String deleteAccount(Scanner sc) {
+
+    public String delete(Scanner sc) {
         return accountService.delete(Account.builder().accountNumber(sc.next()).build());
     }
 
-    public List<Account> getAccount(Scanner sc) {
+    public List<?> getAccounts(Scanner sc) {
         return accountService.findAll();
     }
 }

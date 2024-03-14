@@ -1,13 +1,16 @@
 package com.james.api.user;
+
 import com.james.api.enums.Messenger;
+
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserRepository {
-    private static UserRepository instance;
-
     private PreparedStatement pstmt;
+    private Connection connection;
     private ResultSet rs;
+
 
     static {
         try {
@@ -16,31 +19,29 @@ public class UserRepository {
             throw new RuntimeException(e);
         }
     }
-    private Connection connection;
-    private UserRepository() throws SQLException {
 
-         connection = DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/jamesdb",
-            "james",
-            "password");
+    private static UserRepository instance;
 
-         pstmt = null;
-         rs = null;
-
+    public UserRepository() throws SQLException {
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jamesdb", "james", "password");
+        pstmt = null;
+        rs = null;
     }
+
     public static UserRepository getInstance() {
         return instance;
     }
+
 
     public String test() {
         return "UserRepository 연결";
     }
 
     public List<?> findUsers() throws SQLException {
-        List<User> ls= new ArrayList<>();
+        List<User> ls = new ArrayList<>();
         String sql = "select * from users";
         pstmt = connection.prepareStatement(sql);
-        rs = pstmt.executeQuery();
+
         if (rs.next()) {
             do {
                 ls.add(User.builder()
@@ -54,14 +55,23 @@ public class UserRepository {
                         .weight(rs.getDouble("weight"))
                         .build());
             } while (rs.next());
-        }else{
+        } else {
             System.out.println("데이터가 없습니다.");
         }
         return ls;
     }
 
-    public Messenger createTable() throws SQLException {
+    public User findUser() {
+        return null;
+    }
 
+    public Messenger deleteTable() throws SQLException {
+        String sql = "DROP TABLE IF EXISTS users;";
+        pstmt = connection.prepareStatement(sql);
+        return (pstmt.executeUpdate() == 0) ? Messenger.SUCCESS : Messenger.FAIL;
+    }
+
+    public Messenger createTable() throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS users (\n" +
                 "    id INT AUTO_INCREMENT PRIMARY KEY,\n" +
                 "    username VARCHAR(20),\n" +
@@ -72,22 +82,13 @@ public class UserRepository {
                 "    height VARCHAR(20),\n" +
                 "    weight VARCHAR(20)\n" +
                 ");";
-
         pstmt = connection.prepareStatement(sql);
-        return (pstmt.executeUpdate()==0) ? Messenger.SUCCESS: Messenger.FAIL ; // 삼항연산자
-
-    }
-    public Messenger deleteTable() throws SQLException {
-
-        String sql = "DROP TABLE IF EXISTS users";
-        pstmt = connection.prepareStatement(sql);
-        return (pstmt.executeUpdate()==0) ? Messenger.SUCCESS: Messenger.FAIL;
+        return (pstmt.executeUpdate() == 0) ? Messenger.SUCCESS : Messenger.FAIL;
     }
 
     public Messenger insertData(User user) throws SQLException {
-        String sql = "insert into users(username, password, name, phone, job, height, weight) \n" +
+        String sql = "insert into users(username,password,name,phone,job,height,weight) \n" +
                 "values (?,?,?,?,?,?,?);";
-
         pstmt = connection.prepareStatement(sql);
         pstmt.setString(1, user.getUsername());
         pstmt.setString(2, user.getPassword());
@@ -96,9 +97,12 @@ public class UserRepository {
         pstmt.setString(5, user.getJob());
         pstmt.setDouble(6, user.getHeight());
         pstmt.setDouble(7, user.getWeight());
-        return (pstmt.executeUpdate() == 1) ? Messenger.SUCCESS: Messenger.FAIL;
+        return (pstmt.executeUpdate() == 1) ? Messenger.SUCCESS : Messenger.FAIL;
     }
+
     public void sqlClose() throws SQLException {
         connection.close();
     }
+
+
 }

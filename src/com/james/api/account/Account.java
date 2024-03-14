@@ -1,14 +1,13 @@
 package com.james.api.account;
 
 import lombok.*;
+
 import java.util.Date;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
 @ToString(exclude = {"id"})
-
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Account {
-
     private Long id;
     private String accountNumber;
     private String accountHolder;
@@ -24,8 +23,3 @@ public class Account {
         this.transactionDate = transactionDate;
     }
 }
-
-
-
-
-

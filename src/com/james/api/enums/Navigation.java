@@ -1,80 +1,65 @@
 package com.james.api.enums;
 
+import com.james.api.account.AccountView;
 import com.james.api.article.ArticleView;
+import com.james.api.board.BoardView;
 import com.james.api.crawler.CrawlerView;
 import com.james.api.user.UserView;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 public enum Navigation {
-
-    Exit("x", scanner ->  {
-        System.out.println("EXIT");
-        return false;
-    }),
-    User("u", scanner -> {
+    EXIT("x", i -> {
+        return false;}),
+    BOARD("b", i -> {
+        BoardView.main(i);
+        return true;}),
+    USER("u", i -> {
         try {
-            UserView.main(scanner);
+            UserView.main(i);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return true;
-    }),
-    Board("b", scanner -> {
-        System.out.println("Borad");
-        return true;
-    }),
-
-    Account("m", scanner -> {
-        System.out.println("Account");
-        return true;
-    }),
-    Crawler("c", scanner-> {
+        return true;}),
+    ACCOUNT("m", i -> {
+        AccountView.main(i);
+        return true;}),
+    CRAWLER("c", i -> {
         try {
-            CrawlerView.main(scanner);
+            CrawlerView.main(i);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return true;
-    }),
-
-    Articles("a", scanner -> {
+        return true;}),
+    ARTICLE("a", i -> {
         try {
-            ArticleView.main(scanner);
+            ArticleView.main(i);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return true;
-    }),
+        return true;})
+    ;
 
-    ERROR("error", scanner-> {
-        System.out.println("ERROR 유효하지 않는 문자입니다.");
-        return true;
-    });
-
-    private final String name;
     private final Predicate<Scanner> predicate;
+    private final String name;
 
     Navigation(String name, Predicate<Scanner> predicate) {
         this.name = name;
         this.predicate = predicate;
     }
-    public static boolean navigate(Scanner sc) {
-        System.out.println("\n === x-Exit +" +
-                "u-User " +
-                "b-Board " +
-                "m-Account " +
-                "c-Crawler " +
-                "a-Articles" +
-                "===");
-        String str = sc.next();
-        return Stream.of(values())
-                .filter(i -> i.name.equals(str))
-                .findAny().orElse(ERROR).predicate.test(sc);
+
+
+
+    public static boolean testNavigation(Scanner sc){
+        System.out.println("x-Exit, b-Board, u-User, m-Account, c-Crawler, a-Article");
+        String msg = sc.next();
+        return Arrays.stream(values())
+                .filter(i->i.name.equals(msg))
+                .findFirst().orElseThrow(() ->new IllegalArgumentException("올바른 값이 아닙니다."))
+                .predicate.test(sc);
     }
 }
-

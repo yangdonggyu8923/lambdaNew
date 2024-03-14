@@ -8,19 +8,16 @@ import java.util.List;
 import java.util.Optional;
 
 public class ArticleServiceImpl extends AbstractService implements ArticleService {
-
     private ArticleRepository articleRepository;
-    private static ArticleServiceImpl instnace = new ArticleServiceImpl();
 
-    private ArticleServiceImpl() {
-        this.articleRepository = ArticleRepository.getInstance();
+    public ArticleServiceImpl() {
+        this.articleRepository = articleRepository.getInstance();
     }
-    public static ArticleServiceImpl getInstnace() {
-        return instnace;
-    }
-    @Override
-    public List<?> findAll() throws SQLException {
-        return articleRepository.findAll();
+
+    private static ArticleServiceImpl instance = new ArticleServiceImpl();
+
+    public static ArticleServiceImpl getInstance() {
+        return instance;
     }
 
     @Override
@@ -29,7 +26,12 @@ public class ArticleServiceImpl extends AbstractService implements ArticleServic
     }
 
     @Override
-    public Optional findById(long id) {
+    public List findAll() throws SQLException {
+        return articleRepository.findAll();
+    }
+
+    @Override
+    public Optional findById(Long id) {
         return Optional.empty();
     }
 
@@ -49,14 +51,7 @@ public class ArticleServiceImpl extends AbstractService implements ArticleServic
     }
 
     @Override
-    public String deleteAll() {
-        return null;
-    }
-
-    @Override
-    public Boolean existsById(long id) {
+    public Boolean existById(Long id) {
         return null;
     }
 }
-
-

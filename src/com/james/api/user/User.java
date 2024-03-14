@@ -3,11 +3,9 @@ import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@ToString(exclude = {"id"})
-
+@ToString
 public class User {
-
-    private Long   id;
+    private Long id;
     private String username;
     private String password;
     private String checkPassword;
@@ -15,12 +13,10 @@ public class User {
     private String phone;
     private Long addressId;
     private String job;
-    private Double weight;
-    private Double height;
-
+    private double height;
+    private double weight;
     @Builder(builderMethodName = "builder")
-    public User(Long id, String username, String password, String checkPassword,
-                String name, String phone,String job, Double weight, Double height) {
+    public User(Long id, String username, String password, String checkPassword, String name, String phone, String job, double height, double weight) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -28,11 +24,11 @@ public class User {
         this.name = name;
         this.phone = phone;
         this.job = job;
-        this.weight = weight;
         this.height = height;
+        this.weight = weight;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
 }
-

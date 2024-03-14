@@ -2,23 +2,11 @@ package com.james.api.common;
 
 public interface UtilService {
     int createRandomInteger(int start, int gapBetweenStartAndEnd);
-
     double createRandomDouble(double start, double gapBetweenStartAndEnd);
-
-    String createRandomTitle();
-
+    public String createRandomJob();
+    String createRandomName();
     String createRandomContent();
-
-    String createRandomWriter();
-
+    String createRandomTitle();
     String createRandomCompany();
-
     String createRandomUsername();
-
-    String createRandomJob();
-
 }
-
-
-
-

@@ -1,6 +1,5 @@
 package com.james.api.account;
 
-
 public interface AccountService {
 
         String deposit(Account account);

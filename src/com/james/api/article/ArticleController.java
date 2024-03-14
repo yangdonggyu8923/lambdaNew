@@ -4,14 +4,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ArticleController {
-
-    private ArticleServiceImpl service;
+    private ArticleServiceImpl articleService;
 
     public ArticleController() {
-        this.service = ArticleServiceImpl.getInstnace();
+        this.articleService = articleService.getInstance();
     }
 
     public List<?> findAll() throws SQLException {
-        return service.findAll();
+        return articleService.findAll();
     }
 }

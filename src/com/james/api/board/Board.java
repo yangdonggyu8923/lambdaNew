@@ -1,21 +1,18 @@
 package com.james.api.board;
+
 import lombok.*;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 @Getter
-@ToString(exclude = {"id"})
-
-
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board {
-
-    private long id;
-    private String boardname;
+    private Long id;
+    private String boardName;
     private String boardType;
 
     @Builder(builderMethodName = "builder")
-    public Board(int id, String boardname, String boardType) {
-        this.id = id;
-        this.boardname = boardname;
+    public Board(String boardName, String boardType) {
+        this.boardName = boardName;
         this.boardType = boardType;
     }
 }

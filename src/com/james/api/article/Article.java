@@ -2,13 +2,10 @@ package com.james.api.article;
 
 import lombok.*;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
 @ToString(exclude = {"id"})
-
-
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Article {
-
     private Long id;
     private String title;
     private String content;
@@ -16,7 +13,7 @@ public class Article {
     private String registerDate;
 
     @Builder(builderMethodName = "builder")
-    public Article(long id, String title, String content, String writer, String registerDate) {
+    public Article(Long id, String title, String content, String writer, String registerDate) {
         this.id = id;
         this.title = title;
         this.content = content;
