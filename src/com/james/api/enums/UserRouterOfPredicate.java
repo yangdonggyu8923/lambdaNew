@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.function.BiPredicate;
 
-public enum UserRouter {
+public enum UserRouterOfPredicate {
     EXIT("x", (a, b) -> {
         System.out.println("EXIT");
         return false;
@@ -89,7 +89,7 @@ public enum UserRouter {
     private final String name;
     private final BiPredicate<UserController, Scanner> predicate;
 
-    UserRouter(String name, BiPredicate<UserController, Scanner> predicate) {
+    UserRouterOfPredicate(String name, BiPredicate<UserController, Scanner> predicate) {
         this.name = name;
         this.predicate = predicate;
     }

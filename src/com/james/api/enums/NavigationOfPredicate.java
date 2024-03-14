@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
-public enum Navigation {
+public enum NavigationOfPredicate {
     EXIT("x", i -> {
         return false;}),
     BOARD("b", i -> {
@@ -47,14 +47,14 @@ public enum Navigation {
     private final Predicate<Scanner> predicate;
     private final String name;
 
-    Navigation(String name, Predicate<Scanner> predicate) {
+    NavigationOfPredicate(String name, Predicate<Scanner> predicate) {
         this.name = name;
         this.predicate = predicate;
     }
 
 
 
-    public static boolean testNavigation(Scanner sc){
+    public static boolean navi(Scanner sc){
         System.out.println("x-Exit, b-Board, u-User, m-Account, c-Crawler, a-Article");
         String msg = sc.next();
         return Arrays.stream(values())

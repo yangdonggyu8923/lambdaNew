@@ -1,6 +1,6 @@
 package com.james.api.user;
 
-import com.james.api.enums.UserRouter;
+import com.james.api.enums.UserRouterOfPredicate;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -8,6 +8,6 @@ import java.util.Scanner;
 public class UserView {
     public static void main(Scanner sc) throws SQLException {
         UserController ctrl = new UserController();
-        while(UserRouter.userRouterTest(ctrl, sc));
+        while(UserRouterOfPredicate.userRouterTest(ctrl, sc));
     }
 }
