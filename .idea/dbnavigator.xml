@@ -158,7 +158,14 @@ CREATE TABLE player (
     
 
 show tables;
-select * from menus;]]></console>
+select * from menus;
+desc menus;
+select * from menus where category = 'navigate';
+select * from menus where category = 'user';
+select * from menus where category = 'account';
+select * from menus where category = 'article';
+select * from menus where category = 'board';
+select * from menus where category = 'soccer';]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">

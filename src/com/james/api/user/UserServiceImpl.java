@@ -64,7 +64,6 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
 
     @Override
     public String changePassword(User user) {
-//        users.get(com.james.api.user.getUsername()).setPassword();
         User userInMap = usersMap.get(user.getUsername());
         String msg = "";
         if (userInMap != null){

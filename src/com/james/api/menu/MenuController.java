@@ -3,6 +3,7 @@ package com.james.api.menu;
 import com.james.api.enums.Messenger;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class MenuController{
     MenuServiceImpl menuService;
@@ -17,10 +18,6 @@ public class MenuController{
         return instance;
     }
 
-    public Messenger insertMenuData(Menu menu) throws SQLException {
-        return menuService.insertMenuData(menu);
-    }
-
     public Messenger createMenuTable() throws SQLException {
         return menuService.createMenuTable();
     }
@@ -31,5 +28,22 @@ public class MenuController{
 
     public void insertMenus() throws SQLException {
         menuService.insertMenus();
+    }
+
+    public List<?> selectTable() throws SQLException {
+        return menuService.selectTable();
+    }
+
+    public Messenger returnMessenger() throws SQLException {
+        Messenger m = menuService.returnMessenger();
+        return m;
+    }
+
+    public Menu returnOneMenu() {
+        return null;
+    }
+
+    public List<?> returnMenus() {
+        return null;
     }
 }

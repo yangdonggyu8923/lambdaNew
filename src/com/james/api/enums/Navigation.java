@@ -4,10 +4,12 @@ import com.james.api.account.AccountView;
 import com.james.api.article.ArticleView;
 import com.james.api.board.BoardView;
 import com.james.api.crawler.CrawlerView;
+import com.james.api.menu.MenuController;
 import com.james.api.user.UserView;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -42,8 +44,11 @@ public enum Navigation {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return true;})
-    ;
+        return true;}),
+    WRONG("WRONG", scan -> {
+        System.out.println("WRONG");
+        return true;
+    });
 
     private final Predicate<Scanner> predicate;
     private final String name;
@@ -55,12 +60,13 @@ public enum Navigation {
 
 
 
-    public static boolean navi(Scanner sc){
-        System.out.println("x-Exit, b-Board, u-User, m-Account, c-Crawler, a-Article");
+    public static boolean navi(Scanner sc) throws SQLException {
+        List<?> ls = MenuController.getInstance().selectTable();
+        System.out.println(ls);
         String msg = sc.next();
         return Stream.of(values())
                 .filter(i->i.name.equals(msg))
-                .findFirst().orElseThrow(() ->new IllegalArgumentException("올바른 값이 아닙니다."))
+                .findFirst().orElseGet(() -> WRONG)
                 .predicate.test(sc);
     }
 }

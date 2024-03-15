@@ -3,6 +3,7 @@ package com.james.api.menu;
 import com.james.api.enums.Messenger;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class MenuServiceImpl implements MenuService{
 
@@ -18,10 +19,6 @@ public class MenuServiceImpl implements MenuService{
         return instance;
     }
 
-    @Override
-    public Messenger insertMenuData(Menu menu) throws SQLException {
-        return menuRepository.insertMenuData(menu);
-    }
 
     @Override
     public Messenger createMenuTable() throws SQLException {
@@ -37,7 +34,7 @@ public class MenuServiceImpl implements MenuService{
     public void insertMenus() throws SQLException {
         String[] categories = {"navigate", "user", "account", "article", "board", "soccer"};
         String[][] menus = {{"x", "usr", "acc", "cwl", "art", "bbs","scc"},
-                {"x", "mk", "joi", "log", "cat :", "ch-pw", "rm",
+                {"x", "mk", "joi", "log", "cat", "ch-pw", "rm",
                         "ls-a", "ls-n", "ls-job", "cnt"},
                 {"x", "mk", "touch", "with", "depo", "bal", "rm", "cat", "ls-a"},
                 {"x", "mk"},
@@ -47,5 +44,15 @@ public class MenuServiceImpl implements MenuService{
         for(int i = 0; i < menus.length; i++)
             for(int j = 0; j < menus[i].length; j++)
                 menuRepository.insertMenus(Menu.builder().category(categories[i]).item(menus[i][j]).build());
+    }
+
+    @Override
+    public List<?> selectTable() throws SQLException {
+        return menuRepository.selectTable();
+    }
+
+    @Override
+    public Messenger returnMessenger() throws SQLException {
+        return menuRepository.returnMessenger();
     }
 }

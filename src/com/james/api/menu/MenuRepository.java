@@ -3,6 +3,8 @@ package com.james.api.menu;
 import com.james.api.enums.Messenger;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuRepository{
     private PreparedStatement pstmt;
@@ -29,16 +31,6 @@ public class MenuRepository{
         return instance;
     }
 
-
-    public Messenger insertMenuData(Menu menu) throws SQLException {
-        String sql = "insert into menus(item, category) values (?, ?);";
-        pstmt = connection.prepareStatement(sql);
-        pstmt.setString(1, menu.getItem());
-        pstmt.setString(2, menu.getCategory());
-        return (pstmt.executeUpdate() == 1) ? Messenger.SUCCESS : Messenger.FAIL;
-    }
-
-
     public Messenger createMenuTable() throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS menus (\n" +
                 "    id INT AUTO_INCREMENT PRIMARY KEY,\n" +
@@ -62,5 +54,30 @@ public class MenuRepository{
         pstmt.setString(1, menu.getItem());
         pstmt.setString(2, menu.getCategory());
         return (pstmt.executeUpdate() == 0) ? Messenger.SUCCESS : Messenger.FAIL;
+    }
+
+    public List<Menu> selectTable() throws SQLException {
+        List<Menu> ls = new ArrayList<>();
+        String sql = "select * from menus where category = 'navigate'";
+        pstmt = connection.prepareStatement(sql);
+        rs = pstmt.executeQuery();
+        if (rs.next()) {
+            do {
+                ls.add(Menu.builder()
+                        .item(rs.getString("item"))
+                        .category(rs.getString("category"))
+                        .build());
+            } while (rs.next());
+        } else {
+            System.out.println("카테고리가 없습니다.");}
+        return ls;
+    }
+
+    public Messenger returnMessenger() throws SQLException {
+        String sql ="";
+        pstmt = connection.prepareStatement(sql);
+        Messenger m = null;
+
+        return m;
     }
 }
