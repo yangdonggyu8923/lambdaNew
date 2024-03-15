@@ -6,10 +6,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException, SQLException {
-//        Messenger msg = MenuController.getInstance().returnMessenger();
-//        Menu oneMenu = MenuController.getInstance().returnOneMenu();
-//        List<?> allMenu = MenuController.getInstance().returnMenus();
-
 
 //        MenuController.getInstance().deleteMenuTable();
 //        MenuController.getInstance().createMenuTable();

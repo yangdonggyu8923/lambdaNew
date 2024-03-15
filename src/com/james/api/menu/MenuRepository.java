@@ -72,12 +72,4 @@ public class MenuRepository{
             System.out.println("카테고리가 없습니다.");}
         return ls;
     }
-
-    public Messenger returnMessenger() throws SQLException {
-        String sql ="";
-        pstmt = connection.prepareStatement(sql);
-        Messenger m = null;
-
-        return m;
-    }
 }

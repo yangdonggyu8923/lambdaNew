@@ -9,7 +9,6 @@ import com.james.api.user.UserView;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -61,8 +60,7 @@ public enum Navigation {
 
 
     public static boolean navi(Scanner sc) throws SQLException {
-        List<?> ls = MenuController.getInstance().selectTable();
-        System.out.println(ls);
+        System.out.println(MenuController.getInstance().selectTable());
         String msg = sc.next();
         return Stream.of(values())
                 .filter(i->i.name.equals(msg))

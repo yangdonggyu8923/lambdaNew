@@ -51,8 +51,5 @@ public class MenuServiceImpl implements MenuService{
         return menuRepository.selectTable();
     }
 
-    @Override
-    public Messenger returnMessenger() throws SQLException {
-        return menuRepository.returnMessenger();
-    }
+
 }

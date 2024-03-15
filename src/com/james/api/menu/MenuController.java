@@ -33,17 +33,4 @@ public class MenuController{
     public List<?> selectTable() throws SQLException {
         return menuService.selectTable();
     }
-
-    public Messenger returnMessenger() throws SQLException {
-        Messenger m = menuService.returnMessenger();
-        return m;
-    }
-
-    public Menu returnOneMenu() {
-        return null;
-    }
-
-    public List<?> returnMenus() {
-        return null;
-    }
 }

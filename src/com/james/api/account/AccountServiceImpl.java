@@ -7,6 +7,7 @@ import com.james.api.user.User;
 import java.util.*;
 
 public class AccountServiceImpl extends AbstractService<Account> implements AccountService {
+    AccountRepository accountRepository;
 
     private static AccountServiceImpl instance = new AccountServiceImpl();
 
@@ -16,6 +17,7 @@ public class AccountServiceImpl extends AbstractService<Account> implements Acco
     private AccountServiceImpl() {
         this.accounts = new ArrayList();
         this.users = new HashMap<>();
+        this.accountRepository = new AccountRepository();
     }
 
     public static AccountServiceImpl getInstance() {return instance;}

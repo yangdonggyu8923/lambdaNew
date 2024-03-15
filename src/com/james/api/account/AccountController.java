@@ -9,6 +9,12 @@ import java.util.Scanner;
 public class AccountController {
     AccountServiceImpl accountService;
 
+    private static AccountController instance = new AccountController();
+
+    public static AccountController getInstance() {
+        return instance;
+    }
+
     public AccountController() {
         this.accountService = AccountServiceImpl.getInstance();
     }

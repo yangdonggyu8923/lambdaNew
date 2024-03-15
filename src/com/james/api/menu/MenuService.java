@@ -12,5 +12,5 @@ public interface MenuService {
 
     List<?> selectTable() throws SQLException;
 
-    Messenger returnMessenger() throws SQLException;
+
 }

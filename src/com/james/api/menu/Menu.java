@@ -18,6 +18,5 @@ public class Menu {
         this.item = item;
         this.category = category;
     }
-
 }
 
