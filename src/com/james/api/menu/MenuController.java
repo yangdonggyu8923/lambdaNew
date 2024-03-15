@@ -28,4 +28,8 @@ public class MenuController{
     public Messenger deleteMenuTable() throws SQLException {
         return menuService.deleteMenuTable();
     }
+
+    public void insertMenus() throws SQLException {
+        menuService.insertMenus();
+    }
 }

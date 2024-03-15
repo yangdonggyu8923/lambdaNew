@@ -17,6 +17,11 @@ public enum UserRouter {
         UserController.getInstance().login(scan);
         return true;
     }),
+    JOIN("j", scan -> {
+        System.out.println("JOIN");
+        UserController.getInstance();
+        return true;
+    }),
     FINDUSER("f", scan -> {
         System.out.println("FIND USER");
         UserController.getInstance().getOne(scan);
@@ -131,6 +136,7 @@ public enum UserRouter {
     public static boolean userRouter(Scanner sc) {
         System.out.println("[MENU]\n" +
                 "x-Exit\n" +
+                "j-Join\n" +
                 "log-LOGIN\n" +
                 "f-FIND USER\n" +
                 "c-CHANGE PASSWORD\n" +

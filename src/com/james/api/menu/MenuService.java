@@ -8,5 +8,6 @@ public interface MenuService {
     Messenger insertMenuData(Menu menu) throws SQLException;
     Messenger createMenuTable() throws SQLException;
     Messenger deleteMenuTable() throws SQLException;
+    void insertMenus() throws SQLException;
 
 }
