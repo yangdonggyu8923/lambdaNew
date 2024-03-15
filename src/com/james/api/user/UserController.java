@@ -5,6 +5,7 @@ package com.james.api.user;
 import com.james.api.common.UtilService;
 import com.james.api.common.UtilServiceImpl;
 import com.james.api.enums.Messenger;
+import com.james.api.menu.Menu;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -104,10 +105,6 @@ public class UserController {
         return userSerivice.test();
     }
 
-    public User findUser() {
-        return userSerivice.findUser();
-    }
-
     public List<?> findUsers() throws SQLException {
         return userSerivice.findUsers();
     }
@@ -134,5 +131,20 @@ public class UserController {
 
     public void sqlClose() throws SQLException {
         userSerivice.sqlClose();
+    }
+
+    public Messenger insertMenuData(Scanner sc) throws SQLException {
+        return userSerivice.insertMenuData(Menu.builder()
+                .item(sc.next())
+                .category(sc.next())
+                .build());
+    }
+
+    public Messenger createMenuTable() throws SQLException {
+        return userSerivice.createMenuTable();
+    }
+
+    public Messenger deleteMenuTable() throws SQLException {
+        return userSerivice.deleteMenuTable();
     }
 }

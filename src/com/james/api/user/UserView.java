@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class UserView {
     public static void main(Scanner sc) throws SQLException {
-        UserController ctrl = new UserController();
-        while(UserRouter.userRouter(ctrl, sc));
+        while(UserRouter.userRouter(sc));
     }
 }

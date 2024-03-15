@@ -156,7 +156,9 @@ CREATE TABLE player (
     FOREIGN KEY(team_id) REFERENCES team(id)
     )DEFAULT CHARSET=utf8;
     
-show tables;]]></console>
+
+show tables;
+select * from menus;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">

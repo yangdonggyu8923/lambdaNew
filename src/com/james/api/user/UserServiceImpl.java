@@ -4,6 +4,7 @@ import com.james.api.common.AbstractService;
 import com.james.api.common.UtilService;
 import com.james.api.common.UtilServiceImpl;
 import com.james.api.enums.Messenger;
+import com.james.api.menu.Menu;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -185,11 +186,6 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     }
 
     @Override
-    public User findUser() {
-        return null;
-    }
-
-    @Override
     public Messenger deleteTable() throws SQLException {
         return userRepository.deleteTable();
     }
@@ -206,5 +202,20 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     @Override
     public void sqlClose() throws SQLException {
         userRepository.sqlClose();
+    }
+
+    @Override
+    public Messenger insertMenuData(Menu menu) throws SQLException {
+        return userRepository.insertMenuData(menu);
+    }
+
+    @Override
+    public Messenger createMenuTable() throws SQLException {
+        return userRepository.createMenuTable();
+    }
+
+    @Override
+    public Messenger deleteMenuTable() throws SQLException {
+        return userRepository.deleteMenuTable();
     }
 }

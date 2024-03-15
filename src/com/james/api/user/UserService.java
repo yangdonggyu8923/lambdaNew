@@ -2,6 +2,7 @@ package com.james.api.user;
 
 
 import com.james.api.enums.Messenger;
+import com.james.api.menu.Menu;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -21,8 +22,6 @@ public interface UserService {
 
     List<?> findUsers() throws SQLException;
 
-    User findUser();
-
     Messenger deleteTable() throws SQLException;
 
     Messenger createTable() throws SQLException;
@@ -30,4 +29,9 @@ public interface UserService {
     Messenger insertData(User user) throws SQLException;
 
     void sqlClose() throws SQLException;
+
+    Messenger insertMenuData(Menu menu) throws SQLException;
+    Messenger createMenuTable() throws SQLException;
+
+    Messenger deleteMenuTable() throws SQLException;
 }
